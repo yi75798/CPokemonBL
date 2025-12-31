@@ -12,12 +12,17 @@ import numpy as np
 import time
 
 #### 設定API 網址
+# 寶可夢數據
 data_url = 'https://pokeapi.co/api/v2/pokemon/'
+# 寶可夢圖片
 img_url = 'https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/official-artwork/'
+# 寶可夢中文名
+ch_name = 'https://pokeapi.co/api/v2/pokemon-species/'
 
 #### 設定欄位
 No = [] # 編號
 Name = [] # 名稱
+Name_ch = [] # 中文名
 Type1 = [] # 屬性1
 Type2 = [] # 屬性2
 Hp = [] # HP
@@ -28,14 +33,14 @@ SD = [] # 特防
 Sp = [] # 速度
 Img_url = [] # 圖片網址
 
-#### 開始取得資料
+#### 取得基礎資料
 for i in range(1, 387):
     r = requests.get(data_url + str(i))
-    if r.status_code != 200:
+    if r.status_code != 200: # 若連線失敗則先爬下一個
         print('編號 i 出現Error')
         continue
 
-    data = r.json()
+    data = r.json() # 轉成json方便查詢
     
     No.append(data['id'])  # 儲存編號
     Name.append(data['name'].capitalize()) # 儲存名稱，將首字轉大寫
@@ -61,9 +66,26 @@ for i in range(1, 387):
 
     time.sleep(0.5) # 等待0.5秒避免過度 request
 
+#### 取得中文名
+for i in range(1, 387):
+    r_ch = requests.get(ch_name + str(i))
+
+    if r_ch.status_code != 200:
+        print('編號 i 出現Error')
+
+    data_ch = r_ch.json()
+    
+    # 觀察json結構取得中文名
+    name_ch = data_ch['names'][3]['name']
+    # 儲存中文名
+    Name_ch.append(name_ch)
+
+    time.sleep(0.5) # 等待0.5秒避免過度 request
+
 #### 建立dataframe並輸出
 df = pd.DataFrame({'No': No,
                    'Name': Name,
+                   'Name_ch': Name_ch,
                    'Type1': Type1,
                    'Type2': Type2,
                    'Hp': Hp,
@@ -73,5 +95,18 @@ df = pd.DataFrame({'No': No,
                    'SD': SD,
                    'Sp': Sp,
                    'Img_url': Img_url})
+
+### 檢查資料有無重複、缺漏
+for i in df.index:
+    for c in df.columns:
+        if (pd.isna(df[c].loc[i])) or (df[c].loc[i] == ''):
+            print(f'第 {i} 列 {c} 欄有缺漏')
+print('沒有遺漏值')
+
+## 檢查資料有無重複
+for c in ['No', 'Name', 'Name_ch', 'Img_url']:
+    if df[c].duplicated().sum() != 0:
+        print(f'第 {c} 欄有重複值')
+print('欄位沒有重複值')    
 
 df.to_excel('pokemon_data.xlsx', index=False)
