@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-# File    :   pokemon_img.py
+# File    :   04_pokemon_request.py
 # Time    :   2025/12/30 16:52:32
 # Author  :   Hsu, Liang-Yi 
 # Email:   yi75798@gmail.com

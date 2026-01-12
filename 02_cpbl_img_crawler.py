@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-# File    :   CPBL_img_crawler.py
+# File    :   02_cpbl_img_crawler.py
 # Time    :   2025/12/26 23:57:45
 # Author  :   Hsu, Liang-Yi 
 # Email:   yi75798@gmail.com

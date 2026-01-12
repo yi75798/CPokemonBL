@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-# File    :   cpbl_standarize.py
+# File    :   05_cpbl_standarize.py
 # Time    :   2025/12/31 16:50:05
 # Author  :   Henry Shih 
 # Email:   
@@ -9,8 +9,8 @@
 import pandas as pd
 
 # 設定路徑名稱
-input_file = "edit_cpbl_PA120_players.xlsx" # ← 改成你的檔名
-output_file = "std_cpbl_PA120_players.xlsx" # 輸出檔名
+input_file = "cpbl_merged.xlsx" # ← 改成你的檔名
+output_file = "std_cpbl.xlsx" # 輸出檔名
 
 # 讀取 Excel
 df = pd.read_excel(input_file)

@@ -1,0 +1,7 @@
+gunicorn
+Flask==2.2.2
+Werkzeug==2.2.2
+pandas
+numpy
+openpyxl
+urllib

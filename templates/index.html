@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="zh-Hant">
+<head>
+    <meta charset="UTF-8">
+    <title>CPokemonBL</title>
+
+    <style>
+        body {
+            font-family: "Noto Sans TC", sans-serif;
+            background-color: #003060;
+            padding: 30px;
+        }
+
+        h1 {
+            text-align: center;
+            color: #FFDC35
+        }
+        
+
+        .search-box {
+            text-align: center;
+            margin: 30px 0;
+        }
+
+        input[type="text"] {
+            width: 240px;
+            padding: 8px;
+            font-size: 16px;
+        }
+
+        button {
+            padding: 8px 16px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .title-img img {
+            width: 200px;
+        }
+
+        .teams {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 24px;
+            margin-top: 40px;
+        }
+
+        .team {
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        .team h2 {
+            text-align: center;
+            border-bottom: 1px solid #ddd;
+            padding-bottom: 8px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            padding: 16px 20px;
+            text-align: center;
+            font-size: 13px;
+            color: #cccccc;
+            line-height: 1.6;
+        }
+        .footer a {
+            color: #cccccc;
+            text-decoration: underline;
+        }
+
+        table {
+            width: 100%;
+            margin-top: 12px;
+            border-collapse: collapse;
+        }
+
+        td {
+            padding: 6px;
+            text-align: center;
+        }
+
+        a {
+            text-decoration: none;
+            color: #1a73e8;
+            font-weight: 500;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+
+    <h1>
+        <img src="https://raw.githubusercontent.com/yi75798/CPokemonBL/master/static/logo.png"
+             alt="CPokemonBL"
+             width="600">
+    </h1>
+
+<div class="footer">
+    #球員資料目前僅包含中職2025賽季打席數達120以上的野手
+    #寶可夢資料目前僅包含全國圖鑑編號001-386
+</div>
+
+<div class="search-box">
+    <form action="/search" method="get">
+        <input type="text" name="q" placeholder="輸入球員名稱">
+        <button type="submit">搜尋</button>
+    </form>
+</div>
+
+<div class="teams">
+    {% for team, players in teams.items() %}
+    <div class="team">
+        <h2>{{ team }}</h2>
+        <table>
+            {% for p in players %}
+            <tr>
+                <td>
+                    <a href="/{{ p }}">{{ p }}</a>
+                </td>
+            </tr>
+            {% endfor %}
+        </table>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+
+<div class="footer">
+    本網站資料來源包含：<br>
+    球員數據來自
+    <a href="https://account.rebas.tw" target="_blank">野球革命</a> 與
+    <a href="https://www.cpbl.com.tw" target="_blank">中華職棒官方網站</a>；<br>
+    寶可夢相關資料與圖片來自
+    <a href="https://pokeapi.co" target="_blank">PokeAPI</a>。<br>
+    本網站僅作學術研究與非商業展示用途。
+</div>
+
+</html>

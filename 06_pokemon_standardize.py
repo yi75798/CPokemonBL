@@ -1,6 +1,6 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-# File    :   pokemon_standardize.py
+# File    :   06_pokemon_standardize.py
 # Time    :   2025/12/31 20:16:49
 # Author  :   Henry Shih 
 # Email:   
@@ -10,7 +10,7 @@ import pandas as pd
 
 # 設定路徑名稱
 input_file = "pokemon_data.xlsx"     # ← 換成你的檔名
-output_file = "std_pokemon_data.xlsx"
+output_file = "std_pokemon.xlsx"
 
 # 讀取 Excel
 df = pd.read_excel(input_file)
