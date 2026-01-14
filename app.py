@@ -10,6 +10,7 @@ from flask import Flask, render_template, make_response, request, redirect, url_
 import pandas as pd
 import os
 import urllib.parse
+from visualization import radar_chart
 
 app = Flask(__name__)
 
@@ -60,6 +61,15 @@ def player_page(player_name):
         return make_response(f'查無此球員：{player_name}', 404)
 
     d = row.iloc[0]
+    
+    # 雷達圖
+    player_radar = radar_chart(row,
+                               ['PA_std', 'wOBA_std', 'OBP_std', 'ISO_std', 'K%_std', 'SB_std'],
+                               ['PA', 'wOBA', 'OBP', 'ISO', '100-K%', 'SB'])
+    pm_radar = radar_chart(row,
+                           ['pm_Hp_std', 'pm_Atk_std', 'pm_Def_std', 'pm_SA_std', 'pm_SD_std', 'pm_Sp_std'],
+                           ['Hp', 'Atk', 'Def', 'SA', 'SD', 'Sp'])
+    
 
     return render_template(
         "player.html",
@@ -73,16 +83,18 @@ def player_page(player_name):
         ISOP= round(d['ISO'], 3),
         K_rate= 100-d['K%'], # K 值取（1-K%）
         SB= d['SB'],
+        player_radar= player_radar,
 
         # 寶可夢
         pokemon_name= d['pm_Name_ch'],
         pokemon_img= d['pm_Img_url'],
-        HP= d['pm_Hp'],
+        Hp= d['pm_Hp'],
         Atk= round(d['pm_Atk'], 3),
         Def= round(d['pm_Def'], 3),
         SA= round(d['pm_SA'], 3),
         SD= d['pm_SD'],
         Sp= d['pm_Sp'],
+        pm_radar= pm_radar
     )
 
 if __name__ == '__main__':
