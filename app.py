@@ -16,37 +16,39 @@ app = Flask(__name__)
 
 #### 讀檔
 BASE_DIR = os.getcwd()
-DATA_PATH = os.path.join(BASE_DIR, "matched_result.xlsx")
+DATA_PATH = os.path.join(BASE_DIR, 'matched_result.xlsx')
 df = pd.read_excel(DATA_PATH)
 
+### 設定各隊中文名稱
 team_name = {
-    "Guardians": "富邦悍將",
-    "Brothers": "中信兄弟",
-    "Dragons": "味全龍",
-    "Lions": "統一7-ELEVEn獅",
-    "TSG": "台鋼雄鷹"
+    'Guardians': '富邦悍將',
+    'Brothers': '中信兄弟',
+    'Dragons': '味全龍',
+    'Lions': '統一7-ELEVEn獅',
+    'TSG': '台鋼雄鷹',
+    'Monkeys': '樂天桃猿'
 }
 
 #### 各頁面
 ### 首頁
-@app.route("/")
+@app.route('/')
 def index():
     teams = {}
 
-    for team, group in df.groupby("team"):
+    for team, group in df.groupby('team'):
         team_zh = team_name.get(team, team)  # 找不到就用原名
-        teams[team_zh] = sorted(group["球員"].unique())
+        teams[team_zh] = sorted(group['球員'].unique())
 
-    return render_template("index.html", teams=teams)
+    return render_template('index.html', teams=teams)
 
-@app.route("/search")
+@app.route('/search')
 def search():
-    player_name = request.args.get("q", "").strip()
+    player_name = request.args.get('q', '').strip()
 
     if not player_name:
-        return redirect(url_for("index"))
+        return redirect(url_for('index'))
 
-    return redirect(f"/{urllib.parse.quote(player_name)}")
+    return redirect(f'/{urllib.parse.quote(player_name)}')
 
 
 ### 球員頁
@@ -55,7 +57,7 @@ def player_page(player_name):
     # 球員姓名轉成編碼
     player_name = urllib.parse.unquote(player_name)
 
-    row = df[df["球員"] == player_name]
+    row = df[df['球員'] == player_name]
 
     if row.empty:
         return make_response(f'查無此球員：{player_name}', 404)
@@ -72,7 +74,7 @@ def player_page(player_name):
     
 
     return render_template(
-        "player.html",
+        'player.html',
         ## 帶入資料
         # 球員
         player_name= d['球員'],

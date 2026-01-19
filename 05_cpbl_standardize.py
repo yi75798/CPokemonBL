@@ -1,10 +1,5 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-# File    :   05_cpbl_standarize.py
-# Time    :   2025/12/31 16:50:05
-# Author  :   Henry Shih 
-# Email:   
-# Description : 中職球員數據標準化
 
 import pandas as pd
 

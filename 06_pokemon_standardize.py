@@ -1,10 +1,5 @@
 #!/usr/bin/python
 # -*- encoding: utf-8 -*-
-# File    :   06_pokemon_standardize.py
-# Time    :   2025/12/31 20:16:49
-# Author  :   Henry Shih 
-# Email:   
-# Description : 寶可夢數據標準化
 
 import pandas as pd
 
