@@ -95,11 +95,3 @@ final_df['stat'] = final_df['pm_Hp'] + final_df['pm_Atk'] + final_df['pm_Def'] +
 
 ## 輸出
 final_df.to_excel('matched_result.xlsx', index=False, sheet_name='Hungarian')
-
-### 檢視一下兩組資料的距離，評估分群效果
-# Max
-# print(f'Max: {final_df["dist"].max()}')
-# # Min
-# print(f'Min: {final_df["dist"].min()}')
-# # Mean
-# print(f'Mean: {final_df["dist"].mean()}')
